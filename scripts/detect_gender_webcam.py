@@ -18,6 +18,9 @@ classes = ['man', 'woman']
 # Initialize webcam
 webcam = cv2.VideoCapture(0)
 
+# Adjust the confidence threshold
+CONFIDENCE_THRESHOLD = 0.6
+
 # Loop to process video frames
 while webcam.isOpened():
     # Capture frame-by-frame
@@ -54,8 +57,8 @@ while webcam.isOpened():
         # Predict gender
         conf = model.predict(face_crop)[0][0]  # Access the scalar value directly
 
-        # Determine the label based on the prediction (threshold of 0.5)
-        idx = 1 if conf >= 0.5 else 0  # If prediction is >= 0.5, it's a woman; else, man
+        # Determine the label based on the prediction (threshold of 0.6)
+        idx = 1 if conf >= CONFIDENCE_THRESHOLD else 0  # If prediction is >= 0.6, it's a woman; else, man
         label = classes[idx]
 
         # Display label and confidence
